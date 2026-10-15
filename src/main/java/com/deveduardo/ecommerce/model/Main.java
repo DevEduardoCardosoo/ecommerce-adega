@@ -2,6 +2,10 @@ package com.deveduardo.ecommerce.model;
 
 import com.deveduardo.ecommerce.model.entities.clientes.Cliente;
 import com.deveduardo.ecommerce.model.entities.clientes.Endereco;
+import com.deveduardo.ecommerce.model.entities.produtos.Produto;
+import com.deveduardo.ecommerce.model.enums.Categoria;
+
+import java.math.BigDecimal;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,5 +15,10 @@ public class Main {
 
         // Testa o erro:
         new Cliente("", "123456", "eduardo@gmail.com", endereco);
+
+        Produto vinho = new Produto("Malbec Reserva", new BigDecimal("89.90"), 0, Categoria.VINHO);
+        vinho.reporEstoque(10);
+        vinho.baixarEstoque(3);
+        System.out.println(vinho);  // Estoque: 7
     }
 }
