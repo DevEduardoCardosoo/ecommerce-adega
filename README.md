@@ -11,8 +11,8 @@ Em desenvolvimento.
 
 - [x] Cliente
 - [x] Endereço
-- [ ] Produto
-- [ ] Carrinho
+- [x] Produto
+- [x] Carrinho
 - [ ] Pedido
 
 ## Autor

@@ -1,6 +1,7 @@
 package com.deveduardo.ecommerce.model.entities.produtos;
 
 import com.deveduardo.ecommerce.model.enums.Categoria;
+import com.deveduardo.ecommerce.util.Validacoes;
 
 import java.math.BigDecimal;
 
@@ -14,14 +15,10 @@ public class Produto {
     private final Categoria categoria;
 
     public Produto(String nome, BigDecimal preco, int estoque, Categoria categoria) {
-        validarNome(nome);
-        validarPreco(preco);
-        if (estoque < 0) {
-            throw new IllegalArgumentException("Estoque não pode ser negativo");
-        }
-        if (categoria == null) {
-            throw new IllegalArgumentException("Categoria é obrigatória");
-        }
+        Validacoes.textoObrigatorio(nome,"Nome");
+        Validacoes.precoPositivo(preco);
+        Validacoes.naoNulo(categoria,"Categoria");
+        Validacoes.naoNegativo(estoque,"Estoque");
         this.id = proximoId++;
         this.nome = nome;
         this.preco = preco;
@@ -29,17 +26,6 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    private void validarNome(String nome) {
-        if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome é obrigatório");
-        }
-    }
-
-    private void validarPreco(BigDecimal preco) {
-        if (preco == null || preco.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Preço deve ser maior que zero");
-        }
-    }
 
     public int getId() {
         return id;
@@ -62,20 +48,18 @@ public class Produto {
     }
 
     public void mudarNome(String nome) {
-        validarNome(nome);
+        Validacoes.textoObrigatorio(nome,"Nome");
         this.nome = nome;
     }
 
     public void alterarPreco(BigDecimal preco) {
-        validarPreco(preco);
+        Validacoes.precoPositivo(preco);
         this.preco = preco;
     }
 
 
     public void baixarEstoque(int qtd) {
-        if (qtd <= 0) {
-            throw new IllegalArgumentException("a quantidade deve ser positiva");
-        }
+        Validacoes.quantidadePositiva(qtd);
         if (qtd > estoque) {
             throw new IllegalArgumentException("Estoque insuficiente para " + nome);
         }
@@ -83,9 +67,7 @@ public class Produto {
     }
 
     public void reporEstoque(int qtd) {
-        if (qtd <= 0) {
-            throw new IllegalArgumentException("Quantidade deve ser positivo!");
-        }
+        Validacoes.quantidadePositiva(qtd);
         estoque += qtd;
     }
 

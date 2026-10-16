@@ -1,5 +1,7 @@
 package com.deveduardo.ecommerce.model.entities.clientes;
 
+import com.deveduardo.ecommerce.util.Validacoes;
+
 public class Endereco {
 
     private final String cep;
@@ -10,19 +12,19 @@ public class Endereco {
     private final String estado;
 
     public Endereco(String cep, String numero, String rua, String bairro, String cidade, String estado) {
-        this.cep = validar(cep, "CEP");
-        this.numero = validar(numero, "Número");
-        this.rua = validar(rua, "Rua");
-        this.bairro = validar(bairro, "Bairro");
-        this.cidade = validar(cidade, "Cidade");
-        this.estado = validar(estado, "Estado");
-    }
+        Validacoes.textoObrigatorio(cep, "CEP");
+        Validacoes.textoObrigatorio(numero, "Número");
+        Validacoes.textoObrigatorio(rua, "Rua");
+        Validacoes.textoObrigatorio(bairro, "Bairro");
+        Validacoes.textoObrigatorio(cidade, "Cidade");
+        Validacoes.textoObrigatorio(estado, "Estado");
 
-    private String validar(String valor, String campo) {
-        if (valor == null || valor.isBlank()) {
-            throw new IllegalArgumentException(campo + " é obrigatório");
-        }
-        return valor;
+        this.cep = cep;
+        this.numero = numero;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
     }
 
     public String getCep() {

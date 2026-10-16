@@ -1,5 +1,7 @@
 package com.deveduardo.ecommerce.model.entities.clientes;
 
+import com.deveduardo.ecommerce.util.Validacoes;
+
 public class Cliente {
 
     private final String nome;
@@ -8,9 +10,7 @@ public class Cliente {
     private Endereco endereco;
 
     public Cliente(String nome, String senha, String email, Endereco endereco) {
-        if(nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome é obrigatório");
-        }
+        Validacoes.textoObrigatorio(nome,"Nome");
         if(email == null || !email.contains("@")){
             throw new IllegalArgumentException("E-mail inválido");
         }
